@@ -27,7 +27,8 @@ public class test {
           if(cpu.memory[mar] == 0x0 ) break;
           cpu.PC = cpu.PC + 1;
           Decode(cpu.memory[mar],cpu);
-          System.out.println("Number of instructions executed: "+cpu.PC);
+          System.out.printf("Number of instructions executed: %c",cpu.PC);
+          System.out.println();
           //print();
         } 
       }
@@ -90,8 +91,8 @@ public class test {
       }
       public static int SExt(int targ, int n)
       {
-        if(targ >> n-1 == 0)  return targ;
-        else  return (0xffff << n) + targ;
+        if(targ >> n-1 == 0)  return targ;//if the first bit is 0, nothing changes
+        else  return (0xffff << n) + targ;//if the first bit is 1, return targ which all other bit before it are "1"s
       }
 
       public static int ZExt(int targ)
@@ -151,13 +152,14 @@ public class test {
       public static void OpST(int inst,CPU cpu)
       {
         System.out.println("OpST ");
-        int src,pcoffset9,madr;
+        int src,baserc,pcoffset6,madr;
         src = ((inst >> 9) & 0x7); /*src*/
+        baserc=((inst >> 6) & 0x7);
         cpu.reg[src] = src;
-        pcoffset9 = SExt(inst & 0x1ff, 9); /*PCoffset9*/
-        System.out.println("OpST result,pcoffset9 "+pcoffset9);
-        madr = cpu.PC + pcoffset9;
+        pcoffset6 = SExt(inst & 0x6, 6); /*PCoffset9*/
+        System.out.println("OpST result,pcoffset6 "+pcoffset6);
+        madr = baserc + pcoffset6;
         System.out.println("OpST result,madr "+madr);
-        //cpu.memory[madr] = cpu.reg[src];
+        cpu.memory[madr] = cpu.reg[src];
       }
 }
