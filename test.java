@@ -29,9 +29,7 @@ public class test {
           System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mar], 4));
           cpu.PC = cpu.PC + 1;
           cpu.Decode(cpu.memory[mar],cpu);    
-          //System.out.println("Number of instructions executed: %c"+intToString(cpu.PC,4));
-          System.out.printf("Number of instructions executed: %c",cpu.PC);
-          System.out.println();
+          System.out.printf("Number of instructions executed: %d\n", (int)cpu.PC - 48);
           //print();
         } 
         }

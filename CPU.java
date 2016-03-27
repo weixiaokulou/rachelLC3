@@ -5,6 +5,7 @@ public class CPU{
   int PC;
   int memory[]= new int[128];
   int str;
+  int last_altered_reg;
   void Decode(int instr,CPU cpu)
      {
       switch(instr >> 12){
@@ -40,7 +41,7 @@ public class CPU{
         System.out.println("Decode finish, the instruction is OP_LDI");
           OpLDI(instr,cpu); 
           break;
-        /*case 6://OP_LDR:
+        case 6://OP_LDR:
         System.out.println("Decode finish, the instruction is OP_LDR");
           OpLDR(instr,cpu);  
           break;
@@ -52,7 +53,7 @@ public class CPU{
         System.out.println("Decode finish, the instruction is OP_BR");
           OpBR(instr,cpu);
           break;
-        case 4://OP_JSR_JSRR:
+        /*case 4://OP_JSR_JSRR:
         System.out.println("Decode finish, the instruction is OP_JSR_JSRR");
           OpJSR_JSRR(instr,cpu);
           break;
@@ -89,7 +90,7 @@ public class CPU{
         return targ; 
       }
 
-      static void OpADD(int inst,CPU cpu)
+      void OpADD(int inst,CPU cpu)
       {
         System.out.println("Executing OpADD... ");
         int src1,src2,imm5,dst;
@@ -106,9 +107,9 @@ public class CPU{
           cpu.reg[dst] = cpu.reg[src1] + imm5;
           System.out.println("Other OpADD result "+cpu.reg[dst]);
         }
-        //last_altered_reg = dst;
+        last_altered_reg = dst;
        }
-      static void OpAND(int inst,CPU cpu)
+      void OpAND(int inst,CPU cpu)
       {
         System.out.println("Executing OpAND... ");
         int src1,src2,imm5,dst;
@@ -125,9 +126,9 @@ public class CPU{
           cpu.reg[dst] = cpu.reg[src1] & imm5; 
           System.out.println("Other OpAND result "+cpu.reg[dst]);
         }
-        //last_altered_reg = dst;
+        last_altered_reg = dst;
       }
-      static void OpNOT(int inst,CPU cpu)
+      void OpNOT(int inst,CPU cpu)
       {
         System.out.println("Executing OpNOT... ");
         int src1,dst;
@@ -135,7 +136,7 @@ public class CPU{
         cpu.reg[src1] = src1; /*sro1*/
         dst = ((inst >> 9) & 0x7); /*dst*/
         cpu.reg[dst] = ~ cpu.reg[src1];
-        //last_altered_reg = dst;
+        last_altered_reg = dst;
       }
       static void OpST(int inst,CPU cpu)
       {
@@ -193,7 +194,7 @@ public class CPU{
         baserc=((inst >> 6) & 0x7);
         madr = baserc + pcoffset6;
         cpu.reg[dst] = ZExt(memory[madr]);
-        //last_altered_reg = dst;
+        last_altered_reg = dst;
         System.out.println("OpLD result :"+cpu.reg[dst]+" has been written in memory["+dst+"]");
       }
       void OpLDI(int inst,CPU cpu)
@@ -206,20 +207,20 @@ public class CPU{
         madr = baserc + pcoffset6;
         madr1=memory[madr];
         cpu.reg[dst] = ZExt(memory[madr1]);
-        //last_altered_reg = dst;
+        last_altered_reg = dst;
         System.out.println("OpLDI result :"+cpu.reg[dst]+" has been written in memory["+dst+"]");
       }
-      /*void OpLDR(int inst,CPU cpu)
+      void OpLDR(int inst,CPU cpu)
         {
           
           System.out.println("Executing OpLDR... ");
           int dst,baserc,pcoffset6,madr;
           dst = ((inst >> 9) & 0x7); 
-          pcoffset6 = SExt(inst & 0x3f, 6); 
+          pcoffset6 = SExt(inst & 0x3f, 6)<<1; 
           baserc=((inst >> 6) & 0x7);
           madr = baserc + pcoffset6;
           cpu.reg[dst] = ZExt(memory[madr]);
-          //last_altered_reg = dst;
+          last_altered_reg = dst;
           System.out.println("OpLD result :"+cpu.reg[dst]+" has been written in memory["+dst+"]");
       }
 
@@ -230,10 +231,11 @@ public class CPU{
           dst = ((inst >> 9) & 0x7); 
           pcoffset9 = SExt(inst & 0x1ff, 9); 
           cpu.reg[dst] = cpu.PC + pcoffset9;
+          System.out.println("OpLD result : new address(including cpu.PC) has been written in memory["+dst+"]");
           last_altered_reg = dst;
         }
 
-        void OpBR(int inst,CPU cpu)
+        /*void OpBR(int inst,CPU cpu)
         {
           System.out.println("Executing OpBR... ");
           int n,z,p,pcoffset9;
@@ -241,10 +243,13 @@ public class CPU{
           z = ((inst >> 10) & 0x1); 
           p = ((inst >> 9) & 0x1); 
           pcoffset9 = SExt(inst & 0x1ff, 9); 
-          unsigned short targ_reg = cpu.reg[last_altered_reg];
+          System.out.printf("pcoffset9: %d  inst: %d", pcoffset9, inst );
+          int targ_reg = cpu.reg[last_altered_reg];
+          System.out.println("last_altered_reg : "+cpu.reg[last_altered_reg]);
           if((n == 1 && targ_reg < 0) || (z == 1 && targ_reg == 0) || (p == 1 && targ_reg > 0)) {
             cpu.PC = cpu.PC + pcoffset9;
           }
+          System.out.println("OpLD result : branch has been made");
         }
 
         void OpJSR_JSRR(int inst,CPU cpu)
