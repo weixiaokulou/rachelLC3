@@ -15,18 +15,19 @@ public class test {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             int i=entry;
             String line = null;
-            
+            int memory[]= new int[128];
             while((line = bufferedReader.readLine()) != null) {
                     int str = Integer.parseInt(line, 2);
-                    cpu.memory[i]=str;
+                    memory[i]=str;
+                    //System.out.println("i: "+i);
                     i++;
           }  
 
         while(true) {
           int mar = cpu.PC;
-          if(cpu.memory[mar] == 0x0 ) break;
+          if(memory[mar] == 0x0 ) break;
           cpu.PC = cpu.PC + 1;
-          Decode(cpu.memory[mar],cpu);
+          Decode(memory[mar],cpu);
           System.out.println("Number of instructions executed: "+cpu.PC);
           //print();
         } 
@@ -51,10 +52,10 @@ public class test {
         case 9://OP_NOT:
           OpNOT(instr,cpu);   
           break;
-        case 3://OP_ST: STB
+        /*case 12://OP_ST: STB
           OpST(instr,cpu);  
           break;
-        /*case 11://OP_STI:
+        case 11://OP_STI:
           OpSTI(instr,cpu);   
           break;
         case 7://OP_STR:
@@ -140,7 +141,6 @@ public class test {
       }
       public static void OpNOT(int inst,CPU cpu)
       {
-        System.out.println("OpNOT ");
         int src1,dst;
         src1=((inst >> 6) & 0x7);
         cpu.reg[src1] = src1; /*sro1*/
@@ -150,14 +150,11 @@ public class test {
       }
       public static void OpST(int inst,CPU cpu)
       {
-        System.out.println("OpST ");
         int src,pcoffset9,madr;
         src = ((inst >> 9) & 0x7); /*src*/
         cpu.reg[src] = src;
         pcoffset9 = SExt(inst & 0x1ff, 9); /*PCoffset9*/
-        System.out.println("OpST result,pcoffset9 "+pcoffset9);
         madr = cpu.PC + pcoffset9;
-        System.out.println("OpST result,madr "+madr);
-        //cpu.memory[madr] = cpu.reg[src];
+        memory[madr] = cpu.reg[src];
       }
 }
