@@ -1,7 +1,9 @@
 import java.io.*;
 
 public class test {
-    public static void main(String [] args) {
+    public static void main(String [] args) throws IOException {
+    	
+    	new JF();
         String fileName = "1.txt";
         CPU cpu=new CPU();
         int entry=0x30;
@@ -25,7 +27,7 @@ public class test {
             while(true) {
               int mar = cpu.PC;
               if(cpu.memory[mar] == 0x0 ) break;
-              System.out.println("——————————————————————————");
+              System.out.println("----------------------------------------------------------------------------");
               System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mar], 4));
               cpu.PC = cpu.PC + 1;
               cpu.Decode(cpu.memory[mar],cpu);    
