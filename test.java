@@ -20,18 +20,18 @@ public class test {
                     cpu.str = Integer.parseInt(line, 2);
                     cpu.memory[i]=cpu.str;
                     i++;
-        }  
+            }  
 
-        while(true) {
-          int mar = cpu.PC;
-          if(cpu.memory[mar] == 0x0 ) break;
-          System.out.println("——————————————————————————");
-          System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mar], 4));
-          cpu.PC = cpu.PC + 1;
-          cpu.Decode(cpu.memory[mar],cpu);    
-          System.out.printf("Number of instructions executed: %d\n", (int)cpu.PC - 48);
-          //print();
-        } 
+            while(true) {
+              int mar = cpu.PC;
+              if(cpu.memory[mar] == 0x0 ) break;
+              System.out.println("——————————————————————————");
+              System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mar], 4));
+              cpu.PC = cpu.PC + 1;
+              cpu.Decode(cpu.memory[mar],cpu);    
+              System.out.printf("Number of instructions executed: %d\n", (int)cpu.PC - 48);
+              //print();
+            } 
         }
         catch(FileNotFoundException ex) {
             System.out.println("Unable to open file '" + fileName + "'");                
@@ -51,5 +51,5 @@ public class test {
           result.replace(result.length() - 1, result.length(), "");
 
           return result.toString();
-      }    
+        }    
 }

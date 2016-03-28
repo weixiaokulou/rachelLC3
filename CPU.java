@@ -53,7 +53,7 @@ public class CPU{
         System.out.println("Decode finish, the instruction is OP_BR");
           OpBR(instr,cpu);
           break;
-        /*case 4://OP_JSR_JSRR:
+        case 4://OP_JSR_JSRR:
         System.out.println("Decode finish, the instruction is OP_JSR_JSRR");
           OpJSR_JSRR(instr,cpu);
           break;
@@ -64,7 +64,7 @@ public class CPU{
         case 12://OP_JMP_RET:
         System.out.println("Decode finish, the instruction is OP_JMP_RET");
           OpJMP_RET(instr,cpu);
-          break;*/
+          break;
         default:
           break;
        }
@@ -235,7 +235,7 @@ public class CPU{
           last_altered_reg = dst;
         }
 
-        /*void OpBR(int inst,CPU cpu)
+        void OpBR(int inst,CPU cpu)
         {
           System.out.println("Executing OpBR... ");
           int n,z,p,pcoffset9;
@@ -281,5 +281,5 @@ public class CPU{
           int baser;
           baser = (inst >> 6) & 0x7; 
           cpu.PC = cpu.reg[baser];
-        }*/
+        }
 }
