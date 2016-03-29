@@ -2,10 +2,11 @@ import java.io.*;
 
 public class test {
     public static void main(String [] args) {
-        String fileName = "1.txt";
+        String fileName = "2.txt";
         CPU cpu=new CPU();
         int entry=0x30;
         cpu.PC = entry;
+        OutPut output=new OutPut();
 
         try {
             // FileReader reads text files in the default encoding.
@@ -23,14 +24,14 @@ public class test {
             }  
 
             while(true) {
-              int mar = cpu.PC;
-              if(cpu.memory[mar] == 0x0 ) break;
+              int mark = cpu.PC;
+              if(cpu.memory[mark] == 0x0 ) break;
               System.out.println("——————————————————————————");
-              System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mar], 4));
+              System.out.println("Fetch finish, the instruction is: "+intToString(cpu.memory[mark], 4));
               cpu.PC = cpu.PC + 1;
-              cpu.Decode(cpu.memory[mar],cpu);    
+              cpu.Decode(cpu.memory[mark],cpu);    
               System.out.printf("Number of instructions executed: %d\n", (int)cpu.PC - 48);
-              //print();
+              output.print(cpu.memory,1,(int)cpu.PC);
             } 
         }
         catch(FileNotFoundException ex) {
