@@ -245,7 +245,6 @@ public class CPU{
           z = ((inst >> 10) & 0x1); 
           p = ((inst >> 9) & 0x1); 
           pcoffset9 = SExt(inst & 0x1ff, 9); 
-          System.out.printf("pcoffset9: %d  inst: %d", pcoffset9, inst );
           int targ_reg = cpu.reg[last_altered_reg];
           System.out.println("last_altered_reg : "+cpu.reg[last_altered_reg]);
           if((n == 1 && targ_reg < 0) || (z == 1 && targ_reg == 0) || (p == 1 && targ_reg > 0)) {
