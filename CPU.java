@@ -13,59 +13,72 @@ public class CPU{
         case opcode.OP_ADD://OP_ADD:
         System.out.println("Decode finish, the instruction is OP_ADD");
           OpADD(instr,cpu); 
-          output.print(reg,2,(int)cpu.PC+100);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_AND://OP_AND:
         System.out.println("Decode finish, the instruction is OP_AND");
           OpAND(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_NOT://OP_NOT:
         System.out.println("Decode finish, the instruction is OP_NOT");
-          OpNOT(instr,cpu);   
+          OpNOT(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);   
           break;
         case opcode.OP_ST://OP_ST: STB
         System.out.println("Decode finish, the instruction is OP_STB");
-          OpST(instr,cpu);  
+          OpST(instr,cpu); 
+          output.print(reg,2,(int)cpu.PC+10000); 
           break;
         case opcode.OP_STI://OP_STI:
         System.out.println("Decode finish, the instruction is OP_STI");
-          OpSTI(instr,cpu);   
+          OpSTI(instr,cpu); 
+          output.print(reg,2,(int)cpu.PC+10000);  
           break;
         case opcode.OP_STR://OP_STR:
         System.out.println("Decode finish, the instruction is OP_STR");
-          OpSTR(instr,cpu);   
+          OpSTR(instr,cpu); 
+          output.print(reg,2,(int)cpu.PC+10000);  
           break;
         case opcode.OP_LD://OP_LD: LDB
         System.out.println("Decode finish, the instruction is OP_LDB");
-          OpLD(instr,cpu);    
+          OpLD(instr,cpu);   
+          output.print(reg,2,(int)cpu.PC+10000); 
           break;
         case opcode.OP_LDI://OP_LDI:
         System.out.println("Decode finish, the instruction is OP_LDI");
-          OpLDI(instr,cpu); 
+          OpLDI(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000); 
           break;
         case opcode.OP_LDR://OP_LDR:
         System.out.println("Decode finish, the instruction is OP_LDR");
           OpLDR(instr,cpu);  
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_LEA://OP_LEA:
         System.out.println("Decode finish, the instruction is OP_LEA");
           OpLEA(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_BR://OP_BR:
         System.out.println("Decode finish, the instruction is OP_BR");
           OpBR(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_JSR_JSRR://OP_JSR_JSRR:
         System.out.println("Decode finish, the instruction is OP_JSR_JSRR");
           OpJSR_JSRR(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_TRAP://OP_TRAP:
         System.out.println("Decode finish, the instruction is OP_TRAP");
           OpTRAP(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         case opcode.OP_JMP_RET://OP_JMP_RET:
         System.out.println("Decode finish, the instruction is OP_JMP_RET");
           OpJMP_RET(instr,cpu);
+          output.print(reg,2,(int)cpu.PC+10000);
           break;
         default:
           break;

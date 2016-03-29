@@ -2,7 +2,7 @@ import java.io.*;
 
 public class test {
     public static void main(String [] args) {
-        String fileName = "2.txt";
+        String fileName = "example1.txt";
         CPU cpu=new CPU();
         int entry=0x30;
         cpu.PC = entry;
