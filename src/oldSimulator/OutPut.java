@@ -1,3 +1,4 @@
+package oldSimulator;
 import java.io.*; 
 class OutPut { 
 public static void main(String [] args) {

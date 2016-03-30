@@ -1,6 +1,7 @@
+package oldSimulator;
 import java.io.*;
 
-public class test {
+public class Test {
     public static void main(String [] args) {
         String fileName = "example1.txt";
         CPU cpu=new CPU();

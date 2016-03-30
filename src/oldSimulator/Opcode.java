@@ -1,6 +1,7 @@
+package oldSimulator;
 import java.io.*;
 
-public class opcode{
+public class Opcode {
 	public static final int OP_ADD=1;
 	public static final int OP_AND=5;
 	public static final int OP_NOT=9;
